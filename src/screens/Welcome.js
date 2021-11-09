@@ -1,0 +1,15 @@
+// Libs
+import React from 'react';
+
+// React Native Components
+import {View, Text} from 'react-native';
+
+const Welcome = () => {
+  return (
+    <View>
+      <Text>Welcome</Text>
+    </View>
+  );
+};
+
+export default Welcome;
