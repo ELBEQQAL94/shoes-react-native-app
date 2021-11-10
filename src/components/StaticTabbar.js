@@ -18,7 +18,7 @@ import {
 import {setSelectedTabIndex} from '../stores/reducer/tabReducer';
 
 // Constants
-import {SIZES} from '../theme';
+import {COLORS, SIZES} from '../theme';
 
 const {width} = SIZES;
 
@@ -91,7 +91,7 @@ const StaticTabbar = ({tabs, value}) => {
                 navigation.navigate(tab.screen);
               }}>
               <Animated.View style={[styles.tab, {opacity}]}>
-                <Icon name={tab.name} color="white" size={25} />
+                <Icon name={tab.name} color={COLORS.white} size={25} />
               </Animated.View>
             </TouchableWithoutFeedback>
             <Animated.View
@@ -107,7 +107,7 @@ const StaticTabbar = ({tabs, value}) => {
                 transform: [{translateY}],
               }}>
               <View style={styles.activeIcon}>
-                <Icon name={tab.name} color="#639AFE" size={25} />
+                <Icon name={tab.name} color={COLORS.blue} size={25} />
               </View>
             </Animated.View>
           </React.Fragment>
@@ -129,7 +129,7 @@ const styles = StyleSheet.create({
   },
   activeIcon: {
     marginBottom: 10,
-    backgroundColor: '#18191D',
+    backgroundColor: COLORS.black,
     width: 80,
     height: 80,
     borderRadius: 50,

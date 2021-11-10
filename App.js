@@ -14,7 +14,7 @@ import {Provider} from 'react-redux';
 import store from './src/stores';
 
 // Screens
-import {Home, Search, User, Cart} from './src/screens';
+import {Home, Search, User, Cart, ProductView} from './src/screens';
 
 const Stack = createNativeStackNavigator();
 
@@ -32,6 +32,7 @@ const App = () => {
           <Stack.Screen name="Search" component={Search} />
           <Stack.Screen name="User" component={User} />
           <Stack.Screen name="Cart" component={Cart} />
+          <Stack.Screen name="ProductView" component={ProductView} />
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>

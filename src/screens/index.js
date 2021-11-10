@@ -13,4 +13,7 @@ import User from './User';
 // Cart
 import Cart from './Cart';
 
-export {Welcome, Home, Search, User, Cart};
+// Product View
+import ProductView from './ProductView';
+
+export {Welcome, Home, Search, User, Cart, ProductView};

@@ -2,13 +2,13 @@
 import React from 'react';
 
 // React Native Components
-import {StyleSheet, View} from 'react-native';
+import {SafeAreaView, View} from 'react-native';
 
 // Core Components
 import {Tabbar} from '../components';
 
-// Theme
-import {COLORS, SIZES} from '../theme';
+// Styles
+import styles from './styles';
 
 const MainLayout = ({children}) => {
   return (
@@ -18,14 +18,5 @@ const MainLayout = ({children}) => {
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: COLORS.white,
-    paddingVertical: SIZES.padding,
-    paddingHorizontal: SIZES.padding,
-  },
-});
 
 export default MainLayout;
