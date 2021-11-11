@@ -11,7 +11,9 @@ import styles from './styles';
 const ProductCard = ({item}) => {
   const navigation = useNavigation();
 
-  const onPress = () => navigation.navigate('ProductView');
+  const onPress = () => {
+    navigation.navigate('ProductView', {item});
+  };
 
   return (
     <View style={styles.container}>
