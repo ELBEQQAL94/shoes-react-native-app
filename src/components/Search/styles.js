@@ -17,6 +17,7 @@ const styles = StyleSheet.create({
   },
   searchInputContainer: {
     flex: 1,
+    color: COLORS.black,
   },
 });
 

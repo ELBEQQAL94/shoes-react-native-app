@@ -4,4 +4,7 @@ import icons from './icons';
 // Cateories
 import categories from './categories';
 
-export {icons, categories};
+// Images
+import images from './images';
+
+export {icons, categories, images};

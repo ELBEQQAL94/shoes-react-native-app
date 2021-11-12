@@ -8,7 +8,6 @@ import {View, Text} from 'react-native';
 import styles from './styles';
 
 const RenderProductColors = ({colors}) => {
-  console.log('colors: ', colors);
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Colors</Text>

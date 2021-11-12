@@ -31,6 +31,12 @@ import ProductNameAndPrice from './ProductNameAndPrice';
 // Render Product Colors
 import RenderProductColors from './RenderProductColors';
 
+// OnBoardingItem
+import OnBoardingItem from './OnBoardingItem';
+
+// Paginator
+import Paginator from './Paginator';
+
 export {
   Tabbar,
   Header,
@@ -43,4 +49,6 @@ export {
   ProductViewImage,
   ProductNameAndPrice,
   RenderProductColors,
+  OnBoardingItem,
+  Paginator,
 };

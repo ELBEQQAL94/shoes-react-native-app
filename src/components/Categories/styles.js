@@ -21,6 +21,7 @@ const styles = StyleSheet.create({
   title: {
     flex: 1,
     marginBottom: -8,
+    color: COLORS.black,
     ...FONTS.body2,
   },
   activeCategory: {

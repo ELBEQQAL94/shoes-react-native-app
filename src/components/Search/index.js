@@ -18,6 +18,7 @@ const Search = () => {
       <TextInput
         placeholder="Type name..."
         style={styles.searchInputContainer}
+        placeholderTextColor={COLORS.gray}
       />
       <Icon name="filter" size={25} color={COLORS.blue} />
     </View>

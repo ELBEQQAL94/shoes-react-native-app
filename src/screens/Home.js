@@ -34,7 +34,7 @@ const Home = () => {
           <TouchableOpacity
             style={styles.barIconContainer}
             onPress={() => console.log('OPEN DRAWER')}>
-            <Icon name="bar-chart-2" size={25} />
+            <Icon name="bar-chart-2" size={25} color={COLORS.black} />
           </TouchableOpacity>
         }
       />
@@ -56,7 +56,6 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 5,
     padding: 5,
-    color: COLORS.gray,
     transform: [
       {
         rotate: '-90deg',

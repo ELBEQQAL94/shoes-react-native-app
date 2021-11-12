@@ -14,7 +14,7 @@ import {Provider} from 'react-redux';
 import store from './src/stores';
 
 // Screens
-import {Home, Search, User, Cart, ProductView} from './src/screens';
+import {Home, Search, User, Cart, ProductView, Welcome} from './src/screens';
 
 const Stack = createNativeStackNavigator();
 
@@ -26,8 +26,8 @@ const App = () => {
           screenOptions={{
             headerShown: false,
           }}
-          initialRouteName={'Home'}>
-          {/* <Stack.Screen name="Welcome" component={Welcome} /> */}
+          initialRouteName={'Welcome'}>
+          <Stack.Screen name="Welcome" component={Welcome} />
           <Stack.Screen name="Home" component={Home} />
           <Stack.Screen name="Search" component={Search} />
           <Stack.Screen name="User" component={User} />
