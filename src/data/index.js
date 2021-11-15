@@ -6,6 +6,10 @@ import women from './women';
 
 import men from './men';
 
-const data = {popular, all, women, men};
+import welcome from './welcome';
+
+import tabs from './tabs';
+
+const data = {popular, all, women, men, welcome, tabs};
 
 export default data;

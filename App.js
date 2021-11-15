@@ -16,6 +16,9 @@ import store from './src/stores';
 // Screens
 import {Home, Search, User, Cart, ProductView, Welcome} from './src/screens';
 
+// Constants
+import {screens} from './src/constants';
+
 const Stack = createNativeStackNavigator();
 
 const App = () => {
@@ -26,13 +29,16 @@ const App = () => {
           screenOptions={{
             headerShown: false,
           }}
-          initialRouteName={'Welcome'}>
-          <Stack.Screen name="Welcome" component={Welcome} />
-          <Stack.Screen name="Home" component={Home} />
-          <Stack.Screen name="Search" component={Search} />
-          <Stack.Screen name="User" component={User} />
-          <Stack.Screen name="Cart" component={Cart} />
-          <Stack.Screen name="ProductView" component={ProductView} />
+          initialRouteName={screens.WELCOME_SCREEN}>
+          <Stack.Screen name={screens.WELCOME_SCREEN} component={Welcome} />
+          <Stack.Screen name={screens.HOME_SCREEN} component={Home} />
+          <Stack.Screen name={screens.SEARCH_SCREEN} component={Search} />
+          <Stack.Screen name={screens.USER_SCREEN} component={User} />
+          <Stack.Screen name={screens.CART_SCREEN} component={Cart} />
+          <Stack.Screen
+            name={screens.PRODUCT_VIEW_SCREEN}
+            component={ProductView}
+          />
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>

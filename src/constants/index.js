@@ -7,4 +7,7 @@ import categories from './categories';
 // Images
 import images from './images';
 
-export {icons, categories, images};
+// Screens
+import screens from './screens';
+
+export {icons, categories, images, screens};

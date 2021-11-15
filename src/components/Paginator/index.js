@@ -2,7 +2,7 @@
 import React, {useRef} from 'react';
 
 // React Native Component
-import {View, Animated, useWindowDimensions} from 'react-native';
+import {Animated} from 'react-native';
 
 // Theme
 import {COLORS, SIZES} from '../../theme';

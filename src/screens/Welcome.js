@@ -6,53 +6,26 @@ import LinearGradient from 'react-native-linear-gradient';
 // React Native Components
 import {View, StyleSheet, Animated, Text, TouchableOpacity} from 'react-native';
 
-// Constants
-import {images} from '../constants';
-
 // Core Components
 import {OnBoardingItem, Paginator} from '../components';
 
 // Theme
 import {COLORS, SIZES} from '../theme';
 
-const welcome = [
-  {
-    id: 1,
-    title: "Life isn't perfect, But your sneakers can be",
-    description:
-      "I'm unpredictable, I never know where I'm going until I get there, I'm so random, I'm always growing, learning, changing, I'm never the same person twice. But one thing you can be sure of about me; is I will always do exactly what I want to do.",
-    image: images.welcomeImage01,
-  },
-  {
-    id: 2,
-    title: "Life isn't perfect, But your sneakers can be",
-    description:
-      "I'm unpredictable, I never know where I'm going until I get there, I'm so random, I'm always growing, learning, changing, I'm never the same person twice. But one thing you can be sure of about me; is I will always do exactly what I want to do.",
-    image: images.welcomeImage02,
-  },
-  {
-    id: 3,
-    title: "Life isn't perfect, But your sneakers can be",
-    description:
-      "I'm unpredictable, I never know where I'm going until I get there, I'm so random, I'm always growing, learning, changing, I'm never the same person twice. But one thing you can be sure of about me; is I will always do exactly what I want to do.",
-    image: images.welcomeImage03,
-  },
-  {
-    id: 4,
-    title: "Life isn't perfect, But your sneakers can be",
-    description:
-      "I'm unpredictable, I never know where I'm going until I get there, I'm so random, I'm always growing, learning, changing, I'm never the same person twice. But one thing you can be sure of about me; is I will always do exactly what I want to do.",
-    image: images.welcomeImage04,
-  },
-];
+// Data
+import data from '../data';
+
+// Constants
+import {screens} from '../constants';
 
 const Welcome = () => {
   const navigation = useNavigation();
+
   // States
   const [completed, setCompleted] = useState(false);
 
   // States
-  const dots = welcome.map(item => ({
+  const dots = data.welcome.map(item => ({
     ...item,
     ref: createRef(),
   }));
@@ -62,8 +35,7 @@ const Welcome = () => {
 
   useEffect(() => {
     scrollX.addListener(({value}) => {
-      console.log(Math.floor(value / SIZES.width));
-      if (Math.floor(value / SIZES.width) === welcome.length - 1) {
+      if (Math.floor(value / SIZES.width) === data.welcome.length - 1) {
         setCompleted(true);
       }
     });
@@ -73,7 +45,7 @@ const Welcome = () => {
   return (
     <View style={styles.container}>
       <Animated.FlatList
-        data={welcome}
+        data={data.welcome}
         showsHorizontalScrollIndicator={false}
         keyExtractor={item => item.id}
         renderItem={({item}) => <OnBoardingItem item={item} />}
@@ -92,7 +64,7 @@ const Welcome = () => {
       <Paginator data={dots} scrollX={scrollX} />
 
       {completed && (
-        <TouchableOpacity onPress={() => navigation.navigate('Home')}>
+        <TouchableOpacity onPress={() => navigation.navigate(screens.HOME_SCREEN)}>
           <LinearGradient
             colors={['#72A7FD', '#5993FF']}
             style={styles.buttonContainer}>

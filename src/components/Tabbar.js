@@ -9,30 +9,17 @@ import {
 import * as shape from 'd3-shape';
 import Svg, {Path} from 'react-native-svg';
 
+// Core Components
 import StaticTabbar from './StaticTabbar';
+
+// Data
+import data from '../data';
 
 const AnimatedSvg = Animated.createAnimatedComponent(Svg);
 const {width} = Dimensions.get('window');
 const height = 64;
-const tabs = [
-  {
-    name: 'home',
-    screen: 'Home',
-  },
-  {
-    name: 'search1',
-    screen: 'Search',
-  },
-  {
-    name: 'user',
-    screen: 'User',
-  },
-  {
-    name: 'shoppingcart',
-    screen: 'Cart',
-  },
-];
-const tabWidth = width / tabs.length;
+
+const tabWidth = width / data.tabs.length;
 const backgroundColor = '#18191D';
 
 const getPath = () => {
@@ -88,7 +75,7 @@ const Tabbar = () => {
           <Path fill={backgroundColor} {...{d}} />
         </AnimatedSvg>
         <View style={StyleSheet.absoluteFill}>
-          <StaticTabbar {...{tabs, value}} />
+          <StaticTabbar {...{tabs: data.tabs, value}} />
         </View>
       </View>
       <SafeAreaView style={styles.container} />

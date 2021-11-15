@@ -9,7 +9,6 @@ const tabSlice = createSlice({
   initialState,
   reducers: {
     setSelectedTabIndex(state, {payload}) {
-      console.log('you call setSelectedTabIndex');
       return {
         selectedTabIndex: payload,
       };
