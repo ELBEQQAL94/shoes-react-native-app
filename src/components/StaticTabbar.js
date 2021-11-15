@@ -1,5 +1,5 @@
 // Libs
-import React, {useEffect} from 'react';
+import React, {useEffect, useCallback} from 'react';
 import {useNavigation} from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/AntDesign';
 
@@ -12,13 +12,17 @@ import {
   StyleSheet,
   TouchableWithoutFeedback,
   Animated,
+  Text,
 } from 'react-native';
 
 // Actions
 import {setSelectedTabIndex} from '../stores/reducer/tabReducer';
 
-// Constants
+// Theme
 import {COLORS, SIZES} from '../theme';
+
+// Constants
+import {screens} from '../constants';
 
 const {width} = SIZES;
 
@@ -28,6 +32,9 @@ const StaticTabbar = ({tabs, value}) => {
   const selectedTabIndex = useSelector(
     state => state.tabState.selectedTabIndex,
   );
+  const numberOfItemsInCart = useSelector(
+    state => state.cartState.items.length,
+  );
 
   const values = tabs.map(
     (tab, index) => new Animated.Value(index === 0 ? 1 : 0),
@@ -35,32 +42,35 @@ const StaticTabbar = ({tabs, value}) => {
 
   useEffect(() => {
     onPress(selectedTabIndex);
-  }, [selectedTabIndex]);
+  }, [onPress, selectedTabIndex]);
 
-  const onPress = (index, tab) => {
-    const tabWidth = width / tabs.length;
-    Animated.sequence([
-      Animated.parallel(
-        values.map(v =>
-          Animated.timing(v, {
-            toValue: 0,
-            duration: 100,
+  const onPress = useCallback(
+    (index, tab) => {
+      const tabWidth = width / tabs.length;
+      Animated.sequence([
+        Animated.parallel(
+          values.map(v =>
+            Animated.timing(v, {
+              toValue: 0,
+              duration: 100,
+              useNativeDriver: true,
+            }),
+          ),
+        ),
+        Animated.parallel([
+          Animated.spring(value, {
+            toValue: tabWidth * index,
             useNativeDriver: true,
           }),
-        ),
-      ),
-      Animated.parallel([
-        Animated.spring(value, {
-          toValue: tabWidth * index,
-          useNativeDriver: true,
-        }),
-        Animated.spring(values[index], {
-          toValue: 1,
-          useNativeDriver: true,
-        }),
-      ]),
-    ]).start();
-  };
+          Animated.spring(values[index], {
+            toValue: 1,
+            useNativeDriver: true,
+          }),
+        ]),
+      ]).start();
+    },
+    [tabs.length, value, values],
+  );
 
   return (
     <View style={styles.container}>
@@ -92,20 +102,23 @@ const StaticTabbar = ({tabs, value}) => {
               }}>
               <Animated.View style={[styles.tab, {opacity}]}>
                 <Icon name={tab.name} color={COLORS.white} size={25} />
+                {tab.screen === screens.CART_SCREEN && (
+                  <Text style={styles.numberOfItems}>
+                    {numberOfItemsInCart}
+                  </Text>
+                )}
               </Animated.View>
             </TouchableWithoutFeedback>
             <Animated.View
-              style={{
-                position: 'absolute',
-                top: -8,
-                left: tabWidth * key,
-                width: tabWidth,
-                height: 64,
-                justifyContent: 'center',
-                alignItems: 'center',
-                opacity: opacity1,
-                transform: [{translateY}],
-              }}>
+              style={[
+                styles.activeIconContainer,
+                {
+                  left: tabWidth * key,
+                  width: tabWidth,
+                  opacity: opacity1,
+                  transform: [{translateY}],
+                },
+              ]}>
               <View style={styles.activeIcon}>
                 <Icon name={tab.name} color={COLORS.blue} size={25} />
               </View>
@@ -127,6 +140,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     height: 64,
   },
+  activeIconContainer: {
+    position: 'absolute',
+    top: -8,
+    height: 64,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   activeIcon: {
     marginBottom: 10,
     backgroundColor: COLORS.black,
@@ -135,6 +155,9 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  numberOfItems: {
+    color: COLORS.white,
   },
 });
 

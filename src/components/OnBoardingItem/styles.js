@@ -28,6 +28,7 @@ const styles = StyleSheet.create({
   description: {
     textAlign: 'center',
     marginTop: SIZES.radius,
+    color: COLORS.gray,
   },
 });
 

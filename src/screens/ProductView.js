@@ -1,9 +1,10 @@
 // Libs
-import React from 'react';
+import React, {useState} from 'react';
 import {useRoute} from '@react-navigation/native';
+import {useDispatch} from 'react-redux';
 
 // React Native Components
-import {StyleSheet, ScrollView} from 'react-native';
+import {StyleSheet, ScrollView, ToastAndroid, View} from 'react-native';
 
 // Theme
 import {COLORS, SIZES} from '../theme';
@@ -16,20 +17,46 @@ import {
   RenderProductColors,
 } from '../components';
 
+// Common core components
+import {Button} from '../common';
+
+// Actions
+import {setItemToCard} from '../stores/reducer/cartReducer';
+
 const ProductView = () => {
+  const dispatch = useDispatch();
+  const [color, setColor] = useState(null);
+
   const route = useRoute();
   const {item} = route.params;
+  const relatedProductImage =
+    item.colors.filter(relatedProduct => color === relatedProduct.color)[0]
+      ?.image || item.image;
 
-  console.log('Product: ', item);
+  const showToast = () => {
+    ToastAndroid.showWithGravityAndOffset(
+      'Item added to cart',
+      ToastAndroid.LONG,
+      ToastAndroid.BOTTOM,
+      25,
+      50,
+    );
+  };
+
+  const addItemToCart = () => {
+    dispatch(setItemToCard(item));
+    showToast();
+  };
 
   return (
     <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
       <ProductViewHeader title={item.name} />
-      <ProductViewImage image={item.image} />
+      <ProductViewImage image={relatedProductImage} />
       <ProductNameAndPrice name={item.name} price={item.price} />
-      {/* Product Color & Product Size */}
-      <RenderProductColors colors={item.colors} />
-      {/* Add To Cart Button */}
+      <RenderProductColors colors={item.colors} setColor={setColor} />
+      <View style={styles.addToCartButtonContainer}>
+        <Button title="Add To Cart" onPress={addItemToCart} />
+      </View>
     </ScrollView>
   );
 };
@@ -39,6 +66,12 @@ const styles = StyleSheet.create({
     paddingVertical: SIZES.padding,
     paddingHorizontal: SIZES.padding,
     backgroundColor: COLORS.white,
+  },
+  addToCartButtonContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingBottom: SIZES.padding,
   },
 });
 

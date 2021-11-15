@@ -1,16 +1,16 @@
 // Libs
 import React, {useEffect, useState, useRef, createRef} from 'react';
 import {useNavigation} from '@react-navigation/native';
-import LinearGradient from 'react-native-linear-gradient';
+import MMKVStorage from 'react-native-mmkv-storage';
 
 // React Native Components
-import {View, StyleSheet, Animated, Text, TouchableOpacity} from 'react-native';
+import {View, StyleSheet, Animated} from 'react-native';
 
 // Core Components
 import {OnBoardingItem, Paginator} from '../components';
 
 // Theme
-import {COLORS, SIZES} from '../theme';
+import {SIZES} from '../theme';
 
 // Data
 import data from '../data';
@@ -18,7 +18,12 @@ import data from '../data';
 // Constants
 import {screens} from '../constants';
 
+// Common core components
+import {Button} from '../common';
+
 const Welcome = () => {
+  const storage = new MMKVStorage.Loader().withEncryption().initialize();
+
   const navigation = useNavigation();
 
   // States
@@ -32,6 +37,17 @@ const Welcome = () => {
 
   const scrollX = useRef(new Animated.Value(0)).current;
   const slidesRef = useRef(null);
+
+  const lunchedApp = () => {
+    navigation.navigate(screens.HOME_SCREEN);
+    setLunchedApp();
+  };
+
+  const setLunchedApp = async () => {
+    await storage.setBoolAsync('isLunched', true);
+    let isLunched = await storage.getBoolAsync('isLunched');
+    console.log('isLunched: ', isLunched);
+  };
 
   useEffect(() => {
     scrollX.addListener(({value}) => {
@@ -63,15 +79,7 @@ const Welcome = () => {
       />
       <Paginator data={dots} scrollX={scrollX} />
 
-      {completed && (
-        <TouchableOpacity onPress={() => navigation.navigate(screens.HOME_SCREEN)}>
-          <LinearGradient
-            colors={['#72A7FD', '#5993FF']}
-            style={styles.buttonContainer}>
-            <Text style={styles.buttonText}>Get Started</Text>
-          </LinearGradient>
-        </TouchableOpacity>
-      )}
+      {completed && <Button title="Get Started" onPress={lunchedApp} />}
     </View>
   );
 };
@@ -81,16 +89,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-  },
-  buttonContainer: {
-    padding: SIZES.radius,
-    marginBottom: SIZES.padding,
-    width: 300,
-    borderRadius: SIZES.radius,
-  },
-  buttonText: {
-    color: COLORS.white,
-    textAlign: 'center',
   },
 });
 

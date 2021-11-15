@@ -1,5 +1,6 @@
 // LIBS
 import React from 'react';
+import MMKVStorage from 'react-native-mmkv-storage';
 
 // React Native Navigation
 import {NavigationContainer} from '@react-navigation/native';
@@ -20,6 +21,12 @@ import {Home, Search, User, Cart, ProductView, Welcome} from './src/screens';
 import {screens} from './src/constants';
 
 const Stack = createNativeStackNavigator();
+const storage = new MMKVStorage.Loader().withEncryption().initialize();
+
+const setLunchedApp = async () => {
+  const isLunched = await storage.getBoolAsync('isLunched');
+  return isLunched;
+};
 
 const App = () => {
   return (
@@ -29,7 +36,9 @@ const App = () => {
           screenOptions={{
             headerShown: false,
           }}
-          initialRouteName={screens.WELCOME_SCREEN}>
+          initialRouteName={
+            setLunchedApp() ? screens.HOME_SCREEN : screens.WELCOME_SCREEN
+          }>
           <Stack.Screen name={screens.WELCOME_SCREEN} component={Welcome} />
           <Stack.Screen name={screens.HOME_SCREEN} component={Home} />
           <Stack.Screen name={screens.SEARCH_SCREEN} component={Search} />
